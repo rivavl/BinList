@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">BinList</string>
+    <string name="number">Number</string>
+    <string name="length">Length:</string>
+    <string name="luhn_algorithm">Luhn Algorithm:</string>
+    <string name="find">Find</string>
+    <string name="scheme">Scheme:</string>
+    <string name="type">Type:</string>
+    <string name="brand">Brand:</string>
+    <string name="prepaid">Prepaid:</string>
+    <string name="numeric">Numeric:</string>
+    <string name="country">Country</string>
+    <string name="alpha2">Alpha2:</string>
+    <string name="name">Name:</string>
+    <string name="currency">Currency:</string>
+    <string name="coords">Coords:</string>
+    <string name="bank">Bank:</string>
+    <string name="url">Url:</string>
+    <string name="phone">Phone:</string>
+    <string name="city">City:</string>
 </resources>
