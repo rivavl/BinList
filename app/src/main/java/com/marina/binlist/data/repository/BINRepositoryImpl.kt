@@ -1,5 +1,7 @@
 package com.marina.binlist.data.repository
 
+import com.marina.binlist.data.local.CardInfoDao
+import com.marina.binlist.data.mapper.toDB
 import com.marina.binlist.data.mapper.toDomain
 import com.marina.binlist.data.remote.CardApi
 import com.marina.binlist.domain.entity.CardInfo
@@ -10,16 +12,24 @@ import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class BINRepositoryImpl @Inject constructor(
-    private val api: CardApi
+    private val api: CardApi,
+    private val dao: CardInfoDao
 ) : BINRepository {
 
     override suspend fun getCardInfo(bin: String): Flow<Resource<CardInfo>> = flow {
         emit(Resource.Loading())
         val response = api.getCharacters(bin)
         if (response.isSuccessful) {
-            emit(Resource.Success(response.body()!!.toDomain()))
+            dao.saveCard(response.body()?.toDB(bin)!!)
+            emit(Resource.Success(dao.getCard(bin).toDomain()))
         } else {
             emit(Resource.Error(response.message()))
         }
+    }
+
+    override suspend fun getCardsFromHistory(): Flow<Resource<List<CardInfo>>> = flow {
+        emit(Resource.Loading())
+        val cards = dao.getCards()
+        emit(Resource.Success(dao.getCards().toDomain()))
     }
 }

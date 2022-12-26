@@ -1,6 +1,8 @@
 package com.marina.binlist.domain.entity
 
 data class CardInfo(
+    val id: Int,
+    val bin: String,
     val numberLength: Int,
     val hasLuhnAlg: Boolean,
     val scheme: String,
