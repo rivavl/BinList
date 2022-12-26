@@ -7,11 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.marina.binlist.R
 import com.marina.binlist.app.App
 import com.marina.binlist.databinding.FragmentInfoBinding
-import com.marina.binlist.presentation.entity.Bank
-import com.marina.binlist.presentation.entity.Country
-import com.marina.binlist.presentation.entity.MainInfo
+import com.marina.binlist.presentation.entity.*
 import com.marina.binlist.presentation.entity.Number
 import com.marina.binlist.presentation.view_model.InfoViewModel
 import com.marina.binlist.presentation.view_model.factory.ViewModelFactory
@@ -22,6 +21,14 @@ class InfoFragment : Fragment() {
     private var _binding: FragmentInfoBinding? = null
     private val binding: FragmentInfoBinding
         get() = _binding ?: throw RuntimeException("FragmentInfoBinding == null")
+
+    private val screenMode by lazy {
+        arguments?.getString(SCREEN_MODE)
+    }
+    private val infoItem by lazy {
+        arguments?.getParcelable<CardInfoUI>(CARD_INFO_ITEM)
+
+    }
 
     private lateinit var viewModel: InfoViewModel
 
@@ -49,13 +56,30 @@ class InfoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this, viewModelFactory)[InfoViewModel::class.java]
+        if (screenMode == MODE_HISTORY) {
+            binding.etBin.setText(infoItem?.bin)
+            setAllInfo(infoItem!!)
+            hideButtons()
+
+        }
         setOnClickListener()
         observeViewModel()
+    }
+
+    private fun hideButtons() {
+        binding.fabHistory.visibility = View.GONE
+        binding.btnFind.visibility = View.GONE
     }
 
     private fun setOnClickListener() {
         binding.btnFind.setOnClickListener {
             viewModel.getInfo(getCardBIN())
+        }
+        binding.fabHistory.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .addToBackStack(this.javaClass.simpleName)
+                .replace(R.id.fragment_container, HistoryFragment.newInstance())
+                .commit()
         }
     }
 
@@ -68,12 +92,16 @@ class InfoFragment : Fragment() {
         viewModel.info.observe(viewLifecycleOwner) {
             if (it.info != null) {
                 val card = it.info
-                setNumberInfo(card.number)
-                setMainInfo(card.mainInfo)
-                setCountryInfo(card.country)
-                setBankInfo(card.bank)
+                setAllInfo(card)
             }
         }
+    }
+
+    private fun setAllInfo(card: CardInfoUI) {
+        setNumberInfo(card.number)
+        setMainInfo(card.mainInfo)
+        setCountryInfo(card.country)
+        setBankInfo(card.bank)
     }
 
     private fun setNumberInfo(number: Number?) = with(binding) {
@@ -130,8 +158,27 @@ class InfoFragment : Fragment() {
     }
 
     companion object {
+        private const val SCREEN_MODE = "extra_mode"
+        private const val MODE_HISTORY = "mode_history"
+        private const val MODE_SIMPLE = "mode_simple"
+        private const val CARD_INFO_ITEM = "card_info_item"
+        private const val MODE_UNKNOWN = ""
+
         fun newInstance(): InfoFragment {
-            return InfoFragment()
+            return InfoFragment().apply {
+                arguments = Bundle().apply {
+                    putString(SCREEN_MODE, MODE_SIMPLE)
+                }
+            }
+        }
+
+        fun newInstanceFromHistory(item: CardInfoUI): InfoFragment {
+            return InfoFragment().apply {
+                arguments = Bundle().apply {
+                    putString(SCREEN_MODE, MODE_HISTORY)
+                    putParcelable(CARD_INFO_ITEM, item)
+                }
+            }
         }
     }
 }

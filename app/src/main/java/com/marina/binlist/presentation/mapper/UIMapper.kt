@@ -6,6 +6,8 @@ import com.marina.binlist.presentation.entity.Number
 
 fun CardInfo.toUI(): CardInfoUI {
     return CardInfoUI(
+        id = id,
+        bin = bin,
         bank = Bank(
             name = bankName,
             url = bankUrl,
@@ -31,4 +33,10 @@ fun CardInfo.toUI(): CardInfoUI {
             brand = brand
         )
     )
+}
+
+fun List<CardInfo>.toUI(): List<CardInfoUI> {
+    return map {
+        it.toUI()
+    }
 }
