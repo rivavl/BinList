@@ -6,4 +6,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface BINRepository {
     suspend fun getCardInfo(bin: String): Flow<Resource<CardInfo>>
+
+    suspend fun getCardsFromHistory(): Flow<Resource<List<CardInfo>>>
 }
