@@ -1,5 +1,8 @@
 package com.marina.binlist.di.module
 
+import android.app.Application
+import com.marina.binlist.data.local.AppDatabase
+import com.marina.binlist.data.local.CardInfoDao
 import com.marina.binlist.data.remote.CardApi
 import com.marina.binlist.data.remote.RetrofitInstance
 import com.marina.binlist.data.repository.BINRepositoryImpl
@@ -20,6 +23,11 @@ interface DataModule {
         @Provides
         fun provideCardApi(): CardApi {
             return RetrofitInstance.cardApi
+        }
+
+        @Provides
+        fun provideCardInfoDao(application: Application): CardInfoDao {
+            return AppDatabase.getInstance(application).cardInfoDao
         }
     }
 

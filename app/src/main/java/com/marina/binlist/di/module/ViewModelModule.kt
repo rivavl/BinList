@@ -2,6 +2,7 @@ package com.marina.binlist.di.module
 
 import androidx.lifecycle.ViewModel
 import com.marina.binlist.di.annotations.ViewModelKey
+import com.marina.binlist.presentation.view_model.HistoryViewModel
 import com.marina.binlist.presentation.view_model.InfoViewModel
 import dagger.Binds
 import dagger.Module
@@ -13,4 +14,9 @@ interface ViewModelModule {
     @IntoMap
     @ViewModelKey(InfoViewModel::class)
     fun bindInfoViewModel(viewModel: InfoViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(HistoryViewModel::class)
+    fun bindHistoryViewModel(viewModel: HistoryViewModel): ViewModel
 }

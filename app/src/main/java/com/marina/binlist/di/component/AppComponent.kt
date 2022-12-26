@@ -4,6 +4,7 @@ import android.app.Application
 import com.marina.binlist.di.annotations.ApplicationScope
 import com.marina.binlist.di.module.DataModule
 import com.marina.binlist.di.module.ViewModelModule
+import com.marina.binlist.presentation.fragment.HistoryFragment
 import com.marina.binlist.presentation.fragment.InfoFragment
 import dagger.BindsInstance
 import dagger.Component
@@ -11,7 +12,9 @@ import dagger.Component
 @ApplicationScope
 @Component(modules = [DataModule::class, ViewModelModule::class])
 interface AppComponent {
+
     fun inject(fragment: InfoFragment)
+    fun inject(fragment: HistoryFragment)
 
     @Component.Factory
     interface Factory {
