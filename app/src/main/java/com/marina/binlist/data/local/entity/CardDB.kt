@@ -5,11 +5,11 @@ import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "cards", indices = [Index(value = ["id"], unique = true)])
+@Entity(tableName = "cards", indices = [Index(value = ["bin"], unique = true)])
 data class CardDB(
-    @ColumnInfo(name = "id")
-    @PrimaryKey(autoGenerate = true)
-    val id: Int,
+    @ColumnInfo(name = "bin")
+    @PrimaryKey
+    val bin: String,
     @ColumnInfo(name = "numberLength")
     val numberLength: Int,
     @ColumnInfo(name = "hasLuhnAlg")
@@ -41,7 +41,5 @@ data class CardDB(
     @ColumnInfo(name = "bankPhone")
     val bankPhone: String?,
     @ColumnInfo(name = "bankCity")
-    val bankCity: String?,
-    @ColumnInfo(name = "bin")
-    val bin: String
+    val bankCity: String?
 )

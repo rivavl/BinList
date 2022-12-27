@@ -1,7 +1,10 @@
 package com.marina.binlist.presentation.fragment
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,8 +13,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.marina.binlist.R
 import com.marina.binlist.app.App
 import com.marina.binlist.databinding.FragmentInfoBinding
-import com.marina.binlist.presentation.entity.*
-import com.marina.binlist.presentation.entity.Number
+import com.marina.binlist.presentation.entity.LaunchIntent
+import com.marina.binlist.presentation.entity.card.*
+import com.marina.binlist.presentation.entity.card.Number
 import com.marina.binlist.presentation.view_model.InfoViewModel
 import com.marina.binlist.presentation.view_model.factory.ViewModelFactory
 import javax.inject.Inject
@@ -81,6 +85,15 @@ class InfoFragment : Fragment() {
                 .replace(R.id.fragment_container, HistoryFragment.newInstance())
                 .commit()
         }
+        binding.cvUrl.setOnClickListener {
+            viewModel.goToBrowser()
+        }
+        binding.cvPhone.setOnClickListener {
+            viewModel.goToPhone()
+        }
+        binding.cvCoords.setOnClickListener {
+            viewModel.goToMaps()
+        }
     }
 
     private fun getCardBIN(): String {
@@ -94,6 +107,35 @@ class InfoFragment : Fragment() {
                 val card = it.info
                 setAllInfo(card)
             }
+        }
+        viewModel.launchIntent.observe(viewLifecycleOwner) {
+            when (it) {
+                LaunchIntent.BROWSER -> {
+                    val url = "http://${binding.tvUrl.text}"
+                    val openBrowser = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                    startIntent(openBrowser)
+                }
+                LaunchIntent.CALL -> {
+                    val number = "tel:${binding.tvPhone.text}"
+                    val call = Intent(Intent.ACTION_DIAL, Uri.parse(number))
+                    startIntent(call)
+                }
+                LaunchIntent.MAPS -> {
+                    val c = binding.tvCoords.text.split(" ")
+                    val coords = "geo:${c[0]}, ${c[1]}"
+                    val coordsIntent = Intent(Intent.ACTION_VIEW, Uri.parse(coords))
+                    startIntent(coordsIntent)
+                }
+                else -> {}
+            }
+        }
+    }
+
+    private fun startIntent(intent: Intent) {
+        try {
+            startActivity(intent)
+        } catch (e: Exception) {
+            Log.e(this.javaClass.simpleName, "Error starting intent $intent")
         }
     }
 
@@ -110,7 +152,7 @@ class InfoFragment : Fragment() {
         } else {
             cvNumber.visibility = View.VISIBLE
             tvLength.text = number.length.toString()
-            tvLuhn.text = number.length.toString()
+            tvLuhn.text = number.luhn.toString()
         }
 
     }

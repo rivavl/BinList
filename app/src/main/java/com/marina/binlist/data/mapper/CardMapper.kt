@@ -6,7 +6,6 @@ import com.marina.binlist.domain.entity.CardInfo
 
 fun CardInfoDto.toDB(bin: String): CardDB {
     return CardDB(
-        id = 0,
         bin = bin,
         numberLength = number.length,
         hasLuhnAlg = number.luhn,
@@ -29,7 +28,6 @@ fun CardInfoDto.toDB(bin: String): CardDB {
 
 fun CardDB.toDomain(): CardInfo {
     return CardInfo(
-        id = id,
         bin = bin,
         numberLength = numberLength,
         hasLuhnAlg = hasLuhnAlg,

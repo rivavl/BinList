@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.marina.binlist.databinding.CardItemBinding
-import com.marina.binlist.presentation.entity.CardInfoUI
+import com.marina.binlist.presentation.entity.card.CardInfoUI
 
 class CardAdapter :
     ListAdapter<CardInfoUI, CardAdapter.CardItemViewHolder>(CardDiffUtilCallback()) {
@@ -33,7 +33,7 @@ class CardAdapter :
 
     class CardDiffUtilCallback : DiffUtil.ItemCallback<CardInfoUI>() {
         override fun areItemsTheSame(oldItem: CardInfoUI, newItem: CardInfoUI): Boolean {
-            return oldItem.id == newItem.id
+            return oldItem.bin == newItem.bin
         }
 
         override fun areContentsTheSame(oldItem: CardInfoUI, newItem: CardInfoUI): Boolean {

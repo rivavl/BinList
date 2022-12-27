@@ -1,4 +1,4 @@
-package com.marina.binlist.presentation.entity
+package com.marina.binlist.presentation.entity.card
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

@@ -3,7 +3,7 @@ package com.marina.binlist.data.remote.dto
 import com.google.gson.annotations.SerializedName
 
 data class CardInfoDto(
-    @SerializedName("url")
+    @SerializedName("bank")
     val bank: Bank?,
     @SerializedName("brand")
     val brand: String?,
