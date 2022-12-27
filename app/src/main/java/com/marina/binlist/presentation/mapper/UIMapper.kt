@@ -1,12 +1,11 @@
 package com.marina.binlist.presentation.mapper
 
 import com.marina.binlist.domain.entity.CardInfo
-import com.marina.binlist.presentation.entity.*
-import com.marina.binlist.presentation.entity.Number
+import com.marina.binlist.presentation.entity.card.*
+import com.marina.binlist.presentation.entity.card.Number
 
 fun CardInfo.toUI(): CardInfoUI {
     return CardInfoUI(
-        id = id,
         bin = bin,
         bank = Bank(
             name = bankName,

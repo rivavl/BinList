@@ -8,7 +8,7 @@ import com.marina.binlist.data.local.entity.CardDB
 
 @Dao
 interface CardInfoDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun saveCard(card: CardDB)
 
     @Query("select * from cards")

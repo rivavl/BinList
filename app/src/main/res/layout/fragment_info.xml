@@ -12,7 +12,7 @@
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="24dp"
         android:gravity="center"
-        android:maxLength="8"
+        android:maxLength="16"
         app:layout_constraintBottom_toTopOf="@id/cv_number"
         app:layout_constraintEnd_toStartOf="@id/btn_find"
         app:layout_constraintStart_toStartOf="parent"
@@ -285,14 +285,23 @@
                 app:layout_constraintStart_toStartOf="@id/tv_currency_title"
                 app:layout_constraintTop_toBottomOf="@id/tv_currency_title" />
 
-            <TextView
-                android:id="@+id/tv_coords"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_coords"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:elevation="3dp"
                 app:layout_constraintStart_toEndOf="@id/tv_coords_title"
-                app:layout_constraintTop_toTopOf="@id/tv_coords_title"
-                tools:text="coords" />
+                app:layout_constraintTop_toTopOf="@id/tv_coords_title">
+
+                <TextView
+                    android:id="@+id/tv_coords"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="4dp"
+                    tools:text="coords" />
+            </androidx.cardview.widget.CardView>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
@@ -349,14 +358,23 @@
                 app:layout_constraintStart_toStartOf="@id/tv_name_bank_title"
                 app:layout_constraintTop_toBottomOf="@id/tv_name_bank_title" />
 
-            <TextView
-                android:id="@+id/tv_url"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_url"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:elevation="3dp"
                 app:layout_constraintStart_toEndOf="@id/tv_url_title"
-                app:layout_constraintTop_toTopOf="@id/tv_url_title"
-                tools:text="url" />
+                app:layout_constraintTop_toTopOf="@id/tv_url_title">
+
+                <TextView
+                    android:id="@+id/tv_url"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="4dp"
+                    tools:text="url" />
+            </androidx.cardview.widget.CardView>
+
 
             <TextView
                 android:id="@+id/tv_phone_title"
@@ -366,14 +384,22 @@
                 app:layout_constraintStart_toStartOf="@id/tv_url_title"
                 app:layout_constraintTop_toBottomOf="@id/tv_url_title" />
 
-            <TextView
-                android:id="@+id/tv_phone"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:elevation="3dp"
                 app:layout_constraintStart_toEndOf="@id/tv_phone_title"
-                app:layout_constraintTop_toTopOf="@id/tv_phone_title"
-                tools:text="phone" />
+                app:layout_constraintTop_toTopOf="@id/tv_phone_title">
+
+                <TextView
+                    android:id="@+id/tv_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="4dp"
+                    tools:text="phone" />
+            </androidx.cardview.widget.CardView>
 
             <TextView
                 android:id="@+id/tv_city_title"

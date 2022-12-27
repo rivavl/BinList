@@ -29,7 +29,7 @@ class BINRepositoryImpl @Inject constructor(
 
     override suspend fun getCardsFromHistory(): Flow<Resource<List<CardInfo>>> = flow {
         emit(Resource.Loading())
-        val cards = dao.getCards()
-        emit(Resource.Success(dao.getCards().toDomain()))
+        val cards = dao.getCards().reversed()
+        emit(Resource.Success(cards.toDomain()))
     }
 }

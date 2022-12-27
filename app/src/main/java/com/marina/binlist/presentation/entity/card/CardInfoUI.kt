@@ -1,11 +1,10 @@
-package com.marina.binlist.presentation.entity
+package com.marina.binlist.presentation.entity.card
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class CardInfoUI(
-    val id: Int,
     val bin: String,
     val bank: Bank?,
     val country: Country?,

@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.marina.binlist.domain.use_case.GetCardInfoByBIN
 import com.marina.binlist.domain.util.Resource
+import com.marina.binlist.presentation.entity.LaunchIntent
 import com.marina.binlist.presentation.entity.ScreenState
 import com.marina.binlist.presentation.mapper.toUI
 import kotlinx.coroutines.launch
@@ -15,8 +16,11 @@ class InfoViewModel @Inject constructor(
     private val getCardInfoByBIN: GetCardInfoByBIN
 ) : ViewModel() {
 
-    private var _info = MutableLiveData<ScreenState>()
+    private val _info = MutableLiveData<ScreenState>()
     val info: LiveData<ScreenState> get() = _info
+
+    private val _launchIntent = MutableLiveData(LaunchIntent.UNKNOWN)
+    val launchIntent: LiveData<LaunchIntent> get() = _launchIntent
 
     init {
         _info.value = ScreenState(info = null)
@@ -37,5 +41,17 @@ class InfoViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    fun goToBrowser() {
+        _launchIntent.value = LaunchIntent.BROWSER
+    }
+
+    fun goToPhone() {
+        _launchIntent.value = LaunchIntent.CALL
+    }
+
+    fun goToMaps() {
+        _launchIntent.value = LaunchIntent.MAPS
     }
 }
